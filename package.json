@@ -1,0 +1,26 @@
+{
+  "name": "athena-web-app",
+  "version": "0.0u1",
+  "description": "Something suspicious, or auspicious. I can't remember which is which",
+  "main": "server.js",
+  "scripts": {
+    "test": "node server.js 8080",
+    "start": "node server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/EPiC-Inc/Athena.git"
+  },
+  "author": "[R3DACT3D]",
+  "license": "ISC",
+  "bugs": {
+    "url": ""
+  },
+  "homepage": "https://github.com/EPiC-Inc/Athena#readme",
+  "dependencies": {
+    "express": "^4.16.3",
+    "npm": "^5.10.0",
+    "pg": "^7.5.0",
+    "socket.io": "^2.1.1"
+  }
+}
