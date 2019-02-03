@@ -15,13 +15,13 @@ app.use(bodyParser.urlencoded({
 // GET method route
 app.get('/', function (req, res) {
   res.sendFile('index.html');
-})
+});
 
 // POST method route
 app.post('/', function (req, res) {
   //console.log(req.body);
   res.send('POST request to the homepage');
-})
+});
 
 http.listen(8080, function () {
   console.log(`Listening on port ${http.address().port}`);
