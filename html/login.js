@@ -1,7 +1,6 @@
-sendPost = function(whereToSend) {
-  if (!whereToSend) {whereToSend='/post';}
+sendPost = function(whereToSend, data) {
   //console.log('sent');
-  $.post(whereToSend, {value:'123'}, function(data, status){
+  $.post(whereToSend, data, function(data, status){
     //console.log(data+' : status is '+status);
   });
 }
