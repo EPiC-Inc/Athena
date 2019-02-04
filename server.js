@@ -4,8 +4,9 @@ var http = require('http').Server(app);
 var url = require('url');
 var fs = require('fs');
 var bodyParser = require('body-parser');
+const { Client } = require('pg'); // For the database
 
-const port = process.env.PORT || 80;;
+const port = process.env.PORT || 80;
 
 app.use(express.static(__dirname + '/html'));
 app.use(bodyParser.json());
@@ -13,6 +14,14 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({
      extended: true
 }));
+
+// Functions
+// To connect to database:
+var client = new Client({
+  connectionString: process.env.DATABASE_URL,
+  ssl: true,
+});
+client.connect();
 
 // GET method route
 app.get('/', function(req, res) {
