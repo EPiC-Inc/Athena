@@ -58,7 +58,9 @@ app.post('/database-entry', function(req, res){
 });
 
 app.post('/database-query', function(req, res){
+  res.send('a');
   res.send(querydb(req.body));
+  res.end('b');
 });
 
 // ALL routing
