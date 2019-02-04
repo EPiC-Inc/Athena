@@ -20,6 +20,9 @@ app.get('/', function (req, res) {
 // POST method route
 app.post('/', function (req, res) {
   //console.log(req.body);
+  //parse the data sent
+  var userData = req.body;
+  console.log(userData);
   res.send('POST request to the homepage');
 })
 
