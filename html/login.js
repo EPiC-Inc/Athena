@@ -1,10 +1,9 @@
-/*sendPost = function() {
+sendPost = function() {
   //console.log('sent');
   $.post('/post', {value:'123'}, function(data, status){
     //console.log(data+' : status is '+status);
   });
 }
-*/
 
 function getUrlVars(str){ /* Stole from Ryan b/c i'm lazy, credit to him */
   var vars = [], hash;
