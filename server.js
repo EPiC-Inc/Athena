@@ -68,7 +68,7 @@ app.post("/database-query", function(req, res){
   async_dbquery(req, res)
   .then((result) => {
     //res.send(result);
-    console.log("Promise verified:"+result);
+    //console.log("Promise verified:"+result);
   })
   .catch((err) => {
     console.log("Stuff broke:"+err);
