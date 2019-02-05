@@ -6,7 +6,7 @@ var fs = require('fs');
 var bodyParser = require('body-parser');
 const { Client } = require('pg'); // For the database
 
-const port = process.env.PORT || 80;
+const port = process.env.PORT || 8080;
 
 // To connect to database:
 var client = new Client({
@@ -28,7 +28,7 @@ function querydb(command) {
   // create a db connection client
   client.query(command, (err, res) => {
     dbrep = 'error';
-    if (err) {console.log("database error: "+err);res = {rows:[]};};
+    if (err) {console.log("database error: "+err);res = {rows:['ERROR']};};
     for (let row of res.rows) {
       //console.log(JSON.stringify(row));
     }
