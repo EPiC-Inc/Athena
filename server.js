@@ -71,8 +71,8 @@ app.post("/database-query", function(req, res){
     console.log("Promise verified:"+result);
   })
   .catch((err) => {
-    console.log("Stuff broke");
-    //res.send("500 Stuff Broke<br>If you're the server owner, see the logs for more info");
+    console.log("Stuff broke:"+err);
+    //res.send("Error 500 : Stuff Broke<br>If you're the server owner, see the logs for more info");
   });
   //res.send("wip");
 });
