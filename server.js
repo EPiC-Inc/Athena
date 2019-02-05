@@ -25,20 +25,21 @@ app.use(bodyParser.urlencoded({
 
 // Functions
 // Send a query to the database
-async function querydb(command) {
-  client.query('SELECT NOW() as now')
-    .then((res) => {console.log(res.rows);
-    return res.rows})
+async function querydb(command, req, res) {
+  console.log("command="+command);
+  client.query(command)
+    .then((dbres) => {console.log(dbres.rows);
+    res.send(dbres.rows)})
     .catch(e => console.error(e.stack))
 }
 
-function async_dbquery(req, res, qdb) {
+function async_dbquery(req, res) {
   //console.log("Result of "+req.body.command+" : "+qdb(req.body.command));
   return new Promise(function(resolve, reject){
     // Do async
     //console.log('Promise finished:'+querydb(req.body.command));
     //dbres = result;
-    resolve(qdb(req.body.command));
+    resolve(querydb(req.body.command, req, res));
     //resolve(dbres);
   });
   //res.send(cmd);
@@ -64,7 +65,7 @@ app.post('/database-entry', function(req, res){
 
 app.post('/database-query', function(req, res){
   console.log(querydb(req.body.command));
-  async_dbquery(req, res, querydb).then(function(result){
+  async_dbquery(req, res).then(function(result){
     res.send(result);
     console.log("Promise verified:"+result);
   }, function(err){
