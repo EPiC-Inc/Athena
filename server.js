@@ -65,10 +65,12 @@ app.post('/database-entry', function(req, res){
 
 app.post('/database-query', function(req, res){
   //console.log(querydb(req.body.command));
-  async_dbquery(req, res).then(function(result){
+  async_dbquery(req, res)
+  .then((result) => {
     res.send(result);
     console.log("Promise verified:"+result);
-  }, function(err){
+  })
+  .catch((err) => {
     console.log('Stuff broke');
     res.send('500 Stuff Broke<br>If you\'re the server owner, see the logs for more info');
   });
