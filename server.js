@@ -5,7 +5,6 @@ var url = require('url');
 var fs = require('fs');
 var bodyParser = require('body-parser');
 const { Client } = require('pg'); // For the database
-var dbres = '';
 
 const port = process.env.PORT || 8080;
 
@@ -15,6 +14,7 @@ var client = new Client({
   ssl: true,
 });
 client.connect();
+console.log(process.env.DATABASE_URL);
 
 app.use(express.static(__dirname + '/html'));
 app.use(bodyParser.json());
@@ -35,25 +35,25 @@ function querydb(command) {
       //console.log(JSON.stringify(row));
     }
     dbrep = res.rows;
-    //console.log(dbrep);
+    /*console.log("database result: "+dbrep);*/
   });
   return dbrep;
 }
 
-function async_dbquery(req, res) {
+function async_dbquery(req, res, qdb) {
+  console.log("Result of "+req.body.command+" : "+qdb(req.body.command));
   return new Promise(function(resolve, reject){
     // Do async
-    result = querydb(req.body.command);
-    console.log('Promise finished:'+result)
+    //console.log('Promise finished:'+querydb(req.body.command));
     //dbres = result;
-    resolve(result);
+    resolve(qdb(req.body.command));
+    //resolve(dbres);
   });
   //res.send(cmd);
 }
 
 // GET method route
 app.get('/', function(req, res){
-  var page = 'INDEX';
   res.sendFile('index.html');
 });
 
@@ -71,11 +71,10 @@ app.post('/database-entry', function(req, res){
 });
 
 app.post('/database-query', function(req, res){
-  var initializePromise = async_dbquery(req, res);
-  initializePromise.then(function(result){
-    console.log(result);
+  console.log(querydb(req.body.command));
+  async_dbquery(req, res, querydb).then(function(result){
     res.send(result);
-    console.log("Verified")
+    console.log("Promise verified:"+result);
   }, function(err){
     console.log('Stuff broke');
   });
