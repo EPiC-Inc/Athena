@@ -30,7 +30,7 @@ async function querydb(command, req, res) {
   client.query(command)
     .then((dbres) => {console.log(dbres.rows);
       res.send(dbres.rows)})
-    .catch((e) => console.log(e.stack), res.send(e.stack))
+    .catch((err) => console.log(err.stack), res.send(err.stack))
 }
 
 function async_dbquery(req, res) {
