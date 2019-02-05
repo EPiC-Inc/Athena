@@ -25,23 +25,10 @@ app.use(bodyParser.urlencoded({
 
 // Functions
 // Send a query to the database
-function querydb(command) {
-  // create a db connection client
-  var query = client.query(command);
-  var dbres = [];
-  query.on('row', (row, res) => {
-    dbres.push(row);
-  });
-  query.on('end', (result) => {
-    console.log(dbres);
-  });
-  /*(err, res) => {
-    dbrep = 'error';
-    if (err) {console.log("database error: "+err);res = {rows:[]};};
-    dbrep = res.rows;
-    console.log(dbrep);
-    return dbrep;
-  }*/
+async function querydb(command) {
+  const res = await client.query(command);
+  console.log(res);
+  return res;
 }
 
 function async_dbquery(req, res, qdb) {
