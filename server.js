@@ -30,7 +30,7 @@ async function querydb(command, req, res) {
   client.query(command)
     .then((dbres) => {console.log(dbres.rows);
     res.send(dbres.rows)})
-    .catch(e => console.error(e.stack))
+    .catch(e => console.error(e.stack), res.send(e.stack))
 }
 
 function async_dbquery(req, res) {
@@ -64,7 +64,7 @@ app.post('/database-entry', function(req, res){
 });
 
 app.post('/database-query', function(req, res){
-  console.log(querydb(req.body.command));
+  //console.log(querydb(req.body.command));
   async_dbquery(req, res).then(function(result){
     res.send(result);
     console.log("Promise verified:"+result);
