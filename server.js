@@ -26,18 +26,14 @@ app.use(bodyParser.urlencoded({
 // Functions
 // Send a query to the database
 function querydb(command) {
-  var dbrep = '';
   // create a db connection client
   client.query(command, (err, res) => {
     dbrep = 'error';
-    if (err) {console.log("database error: "+err);res = {rows:['ERROR']};};
-    for (let row of res.rows) {
-      //console.log(JSON.stringify(row));
-    }
+    if (err) {console.log("database error: "+err);res = {rows:[]};};
     dbrep = res.rows;
-    /*console.log("database result: "+dbrep);*/
+    console.log(dbrep);
+    return dbrep;
   });
-  return dbrep;
 }
 
 function async_dbquery(req, res, qdb) {
