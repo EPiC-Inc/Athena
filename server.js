@@ -5,6 +5,7 @@ var url = require('url');
 var fs = require('fs');
 var bodyParser = require('body-parser');
 const { Client } = require('pg'); // For the database
+var dbres = '';
 
 const port = process.env.PORT || 8080;
 
@@ -42,9 +43,10 @@ function querydb(command) {
 function async_dbquery(req, res) {
   return new Promise(function(resolve, reject){
     // Do async
-    var rep = querydb(req.body.command);
-    console.log('Promise finished')
-    resolve();
+    result = querydb(req.body.command);
+    console.log('Promise finished:'+result)
+    //dbres = result;
+    resolve(result);
   });
   //res.send(cmd);
 }
