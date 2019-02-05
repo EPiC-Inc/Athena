@@ -72,7 +72,7 @@ app.post("/database-query", function(req, res){
   })
   .catch((err) => {
     console.log("Stuff broke");
-    res.send("500 Stuff Broke<br>If you're the server owner, see the logs for more info");
+    //res.send("500 Stuff Broke<br>If you're the server owner, see the logs for more info");
   });
   //res.send("wip");
 });
