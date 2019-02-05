@@ -14,7 +14,7 @@ var client = new Client({
   ssl: true,
 });
 client.connect();
-console.log(process.env.DATABASE_URL);
+//console.log(process.env.DATABASE_URL);
 
 app.use(express.static(__dirname + '/html'));
 app.use(bodyParser.json());
@@ -27,17 +27,25 @@ app.use(bodyParser.urlencoded({
 // Send a query to the database
 function querydb(command) {
   // create a db connection client
-  return client.query(command, (err, res) => {
+  var query = client.query(command);
+  var dbres = [];
+  query.on('row', (row, res) => {
+    dbres.push(row);
+  });
+  query.on('end', (result) => {
+    console.log(dbres);
+  });
+  /*(err, res) => {
     dbrep = 'error';
     if (err) {console.log("database error: "+err);res = {rows:[]};};
     dbrep = res.rows;
     console.log(dbrep);
     return dbrep;
-  });
+  }*/
 }
 
 function async_dbquery(req, res, qdb) {
-  console.log("Result of "+req.body.command+" : "+qdb(req.body.command));
+  //console.log("Result of "+req.body.command+" : "+qdb(req.body.command));
   return new Promise(function(resolve, reject){
     // Do async
     //console.log('Promise finished:'+querydb(req.body.command));
