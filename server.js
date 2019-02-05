@@ -27,7 +27,7 @@ app.use(bodyParser.urlencoded({
 // Send a query to the database
 function querydb(command) {
   // create a db connection client
-  client.query(command, (err, res) => {
+  return client.query(command, (err, res) => {
     dbrep = 'error';
     if (err) {console.log("database error: "+err);res = {rows:[]};};
     dbrep = res.rows;
