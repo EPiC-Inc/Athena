@@ -25,6 +25,7 @@ app.use(bodyParser.urlencoded({
 // Functions
 // Send a query to the database
 function querydb(command) {
+  var dbrep = '';
   // create a db connection client
   client.query(command, (err, res) => {
     dbrep = 'error';
@@ -33,9 +34,19 @@ function querydb(command) {
       //console.log(JSON.stringify(row));
     }
     dbrep = res.rows;
-    console.log(dbrep);
-    return dbrep;
+    //console.log(dbrep);
   });
+  return dbrep;
+}
+
+function async_dbquery(req, res) {
+  return new Promise(function(resolve, reject){
+    // Do async
+    var rep = querydb(req.body.command);
+    console.log('Promise finished')
+    resolve();
+  });
+  //res.send(cmd);
 }
 
 // GET method route
@@ -54,11 +65,19 @@ app.post('/', function(req, res){
 });
 
 app.post('/database-entry', function(req, res){
-  //
+  res.send('wip');
 });
 
 app.post('/database-query', function(req, res){
-  res.send(querydb(req.body));
+  var initializePromise = async_dbquery(req, res);
+  initializePromise.then(function(result){
+    console.log(result);
+    res.send(result);
+    console.log("Verified")
+  }, function(err){
+    console.log('Stuff broke');
+  });
+  //res.send('wip');
 });
 
 // ALL routing
@@ -71,4 +90,4 @@ http.listen(port, function () {
   console.log(`Listening on port ${http.address().port}`);
 });
 
-//querydb('select * from users');
+//console.log(querydb('select * from users'));
