@@ -26,9 +26,10 @@ app.use(bodyParser.urlencoded({
 // Functions
 // Send a query to the database
 async function querydb(command) {
-  const res = await client.query(command);
-  console.log(res);
-  return res;
+  client.query('SELECT NOW() as now')
+    .then((res) => {console.log(res.rows);
+    return res.rows})
+    .catch(e => console.error(e.stack))
 }
 
 function async_dbquery(req, res, qdb) {
