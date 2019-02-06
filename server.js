@@ -25,9 +25,9 @@ app.use(bodyParser.urlencoded({
 // Functions
 // Send a query to the database
 async function querydb(command, req, res) {
-  console.log("command="+command);
+  //console.log("command="+command);
   client.query(command)
-    .then((dbres) => {console.log(dbres.rows);
+    .then((dbres) => {/*console.log(dbres.rows);*/
       res.send(dbres.rows)})
     .catch((err) => {console.log(err.stack), res.send(err.stack)})
 }
