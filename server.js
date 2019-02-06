@@ -110,6 +110,11 @@ app.post("/", function(req, res){
   //parse the data sent
   var userData = req.body;
   if (userData.user && userData.pass) {
+    async_querydbLocal("select * from users where username='"+userData.user+"';")
+    .then((result) => {
+      console.log(result);
+    })
+    .catch((err) => {console.log(err)})
     userData.pass = crypto.createHmac('sha256', secret).update(userData.pass).digest('hex');
     // Check userData against db
     res.sendFile(__dirname+"/html/home.html");
@@ -150,8 +155,11 @@ http.listen(port, function () {
   console.log(`Listening on port ${http.address().port}`);
 });
 
+// How to use async_querydbLocal
+/*
 async_querydbLocal("select * from ips")
 .then((result) => {
   console.log(result);
 })
 .catch((err) => {console.log(err)})
+*/
