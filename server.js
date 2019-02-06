@@ -109,7 +109,7 @@ app.post("/", function(req, res){
   //console.log(req.body);
   //parse the data sent
   var userData = req.body;
-  if (userData.user && userData.pass) {
+  if ((userData.user && userData.pass) || userData.session_cookie) {
     async_querydbLocal("select * from users where username='"+userData.user+"';")
     .then((result) => {
       if (result[0]) {
@@ -119,7 +119,7 @@ app.post("/", function(req, res){
         res.sendFile(__dirname+"/html/index.html");
       }
     })
-    .catch((err) => {console.log(err)})
+    .catch((err) => {console.log(err);res.send('500 Server Error')})
     userData.pass = crypto.createHmac('sha256', secret).update(userData.pass).digest('hex');
     // Check userData against db
   } else {
