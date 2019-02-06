@@ -1,30 +1,28 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>LOGIN | ATHENA_GROUP</title>
+  <title>DBQUERY | ATHENA_GROUP</title>
   <link rel="icon" type="image/png" href="favicon.png"/>
   <link rel="stylesheet" type="text/css" href="style.css"/>
   <script src='jquery.min.js'></script>
-  <script src='login.js'></script>
+  <script src='database.js'></script>
 </head>
 
 <body>
+  <h1>database query page</h1><br>
   <!--
   <button id='btn' onclick='sendPost();'>send post</button>
   -->
-
-  <form method="post"><!--<form action='#' method="post">-->
-    Username:<br>
-    <input type="text" name="user"><br>
-    Password:<br>
-    <input type="text" name="pass"><br><br>
-    <input type="submit" value="Login">
-  </form>
-  <br><br>
-  <!--<form onsubmit="return false">
+  <form id="databaseInput" onsubmit="return false">
     Command:<br>
-    <input type="text" id='command' name="command"><br>
+    <input type="text" id='command' name="command">
     <input type="submit" value="Run" onclick="sendPost('/database-query', {command: document.getElementById('command').value});">
-  </form>-->
+  </form>
+  <br><br><hr><br>
+  <span style="font-size:24px;margin-left:2%;">Output:</span>
+  <br>
+  <div id="databaseOutput">
+&lt;No command run&gt;
+  </div>
 </body>
 </html>

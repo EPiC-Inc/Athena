@@ -1,10 +1,65 @@
 * {
+  font-family: "Consolas", monospace;
   margin: 0;
   padding: 0;
-  font-family: "Consolas", monospace;
 }
 
 body {
   background: black;
   color: grey;
+}
+
+#databaseInput {
+  font-size: 24px;
+  margin-left: 2%;
+}
+
+#databaseInput #command {
+  border-radius: 24px;
+  font-size: 22px;
+  height: 32px;
+  margin-top: 1%;
+  padding: 4px 8px;
+  width: 80%;
+}
+
+#databaseInput input[type=submit] {
+  border-width: medium;
+  font-size: 24px;
+  height: 40px;
+  width: 80px;
+}
+
+#databaseOutput {
+  font-size: 24px;
+  margin-left: 3%;
+  margin-top: 1%;
+}
+
+h1, h2, h3, h4 {
+  margin-top: 50px;
+  text-align: center;
+}
+
+#login {
+  margin-top: 10%;
+  text-align: center;
+}
+
+#login, #login * {
+  font-size: 32px;
+}
+
+#login input[type=text], #login input[type=password]{
+  border-radius: 24px;
+  height: 32px;
+  margin-bottom: 2%;
+  margin-top: 1%;
+  padding: 8px 12px;
+  width: 300px;
+}
+
+#login input[type=submit] {
+  border-width: medium;
+  width: 100px;
 }

@@ -5,25 +5,15 @@
   <link rel="stylesheet" type="text/css" href="style.css">
   <title>LOGIN | ATHENA_GROUP</title>
   <script src="jquery.min.js"></script>
-  <script src="login.js"></script>
 </head>
 <body>
-  <!--
-  <button id='btn' onclick='sendPost();'>send post</button>
-  -->
-
-  <form method="post"><!--<form action='#' method="post">-->
+  <form id="login" method="post"><!--<form action='#' method="post">-->
     Username:<br>
     <input type="text" name="user"><br>
     Password:<br>
-    <input type="text" name="pass"><br><br>
+    <input type="password" name="pass"><br><br>
     <input type="submit" value="Login">
   </form>
   <br><br>
-  <!--<form onsubmit="return false">
-    Command:<br>
-    <input type="text" id='command' name="command"><br>
-    <input type="submit" value="Run" onclick="sendPost('/database-query', {command: document.getElementById('command').value});">
-  </form>-->
 </body>
 </html>

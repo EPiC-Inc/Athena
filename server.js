@@ -53,7 +53,7 @@ function merge(values, content) {
 
 function readFileSilent(filename) {
   if (filename) {
-    return fs.readFileSync("./html/"+filename, 'utf8');
+    return fs.readFileSync(__dirname+"/html/"+filename, 'utf8');
   } else {
     return '';
   }
@@ -75,26 +75,28 @@ function assembleLong(htmlHeadFile, htmlBodyFile, htmlScriptsFile, values){
 }
 
 function assemble(htmlFile, values) {
-  var fileContent = fs.readFileSync("./html/"+htmlFile+".html", 'utf8')
+  var fileContent = fs.readFileSync(__dirname+"/html/"+htmlFile+".html", 'utf8')
 }
 
 // GET method route
 app.get("/", function(req, res){
   //res.send(assembleLong('indexHead.html', 'indexBody.html', '', {}));
-  res.sendFile('html/index.html');
+  res.sendFile(__dirname+'/html/index.html');
 });
 
-app.get("/:file", function(req, res){
-  res.send('blank');
-});
+/*app.get("/:file", function(req, res){
+  res.status(401);
+  res.send('401 Unauthorized');
+});*/
 
 // POST method routing
 app.post("/", function(req, res){
   //console.log(req.body);
   //parse the data sent
   var userData = req.body;
-  console.log(userData);
-  res.send("POST request to the homepage");
+  //console.log(userData);
+  // Check userData against db
+  res.sendFile(__dirname+"/html/home.html");
 });
 
 app.post("/database-entry", function(req, res){
@@ -117,6 +119,11 @@ app.post("/database-query", function(req, res){
 // ALL routing
 app.all("/secret", function (req, res) {
   res.send("a");
+});
+
+app.use(function(req, res) {
+  res.status(404);
+  res.sendFile(__dirname+'/html/404.html', 404);
 });
 
 // Server starting

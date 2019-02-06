@@ -1,7 +1,7 @@
 sendPost = function(whereToSend, data) {
   //console.log('sent');
   $.post(whereToSend, data, function(data, status){
-    console.log(data+' : status is '+status);
+    document.getElementById('databaseOutput').innerHTML = data;
   });
 }
 
