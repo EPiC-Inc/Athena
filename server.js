@@ -112,12 +112,16 @@ app.post("/", function(req, res){
   if (userData.user && userData.pass) {
     async_querydbLocal("select * from users where username='"+userData.user+"';")
     .then((result) => {
-      console.log(result);
+      if (result[0]) {
+        console.log(result);
+        res.sendFile(__dirname+"/html/home.html");
+      } else {
+        res.sendFile(__dirname+"/html/index.html");
+      }
     })
     .catch((err) => {console.log(err)})
     userData.pass = crypto.createHmac('sha256', secret).update(userData.pass).digest('hex');
     // Check userData against db
-    res.sendFile(__dirname+"/html/home.html");
   } else {
     res.sendFile(__dirname+'/html/index.html');
   }
