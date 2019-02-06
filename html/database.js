@@ -1,9 +1,12 @@
 sendPost = function(whereToSend, data) {
   //console.log('sent');
   $.post(whereToSend, data, function(data, status){
+    document.getElementById('command').value = '';
     document.getElementById('databaseOutput').innerHTML='';
     console.log(data);
-    if (data.forEach) {data.forEach((row) => {
+    if (!data) {
+      document.getElementById('databaseOutput').innerHTML = "No response, assuming request completed successfully";
+    } else if (data.forEach) {data.forEach((row) => {
       document.getElementById('databaseOutput').innerHTML += JSON.stringify(row);
     });} else {
       document.getElementById('databaseOutput').innerHTML = data.split('\n')[0];
@@ -11,7 +14,7 @@ sendPost = function(whereToSend, data) {
   });
 }
 
-function getUrlVars(str){ /* Stole from Ryan b/c i'm lazy, credit to him */
+function getUrlVars(str){ /* Stole from Ryan b/c i'm lazy, credit to him, also might not need at all */
   var vars = [], hash;
   var hashes = str.slice(str.indexOf('?') + 1).split('&');
   for(var i = 0; i < hashes.length; i++){
