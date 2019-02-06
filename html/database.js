@@ -5,7 +5,9 @@ sendPost = function(whereToSend, data) {
     console.log(data);
     if (data.forEach) {data.forEach((row) => {
       document.getElementById('databaseOutput').innerHTML += JSON.stringify(row);
-    });}
+    });} else {
+      document.getElementById('databaseOutput').innerHTML = data;
+    }
   });
 }
 
