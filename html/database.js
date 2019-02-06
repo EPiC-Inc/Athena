@@ -1,7 +1,8 @@
 sendPost = function(whereToSend, data) {
+  document.getElementById('lastCommand').value = document.getElementById('command').value
+  document.getElementById('command').value = '';
   //console.log('sent');
   $.post(whereToSend, data, function(data, status){
-    document.getElementById('command').value = '';
     document.getElementById('databaseOutput').innerHTML='';
     console.log(data);
     if (!data) {
