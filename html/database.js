@@ -3,9 +3,9 @@ sendPost = function(whereToSend, data) {
   $.post(whereToSend, data, function(data, status){
     document.getElementById('databaseOutput').innerHTML='';
     console.log(data);
-    data.forEach((row) => {
-      document.getElementById('databaseOutput').innerHTML += row;
-    });
+    if (data.forEach) {data.forEach((row) => {
+      document.getElementById('databaseOutput').innerHTML += JSON.stringify(row);
+    });}
   });
 }
 
