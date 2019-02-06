@@ -2,7 +2,7 @@ sendPost = function(whereToSend, data) {
   //console.log('sent');
   $.post(whereToSend, data, function(data, status){
     document.getElementById('databaseOutput').innerHTML='';
-    //console.log(data);
+    console.log(data);
     data.forEach((row) => {
       document.getElementById('databaseOutput').innerHTML += row;
     });
