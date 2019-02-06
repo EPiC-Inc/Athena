@@ -35,12 +35,16 @@ async function querydb(command, req, res) {
     .catch((err) => {console.log(err.stack), res.send(err.stack)})
 }
 
-async function querydbLocal(command) {
-  var res = '';
+async function querydbLocal(command, callback) {
   await client.query(command)
-    .then((dbres) => {res=dbres.rows})
-    .catch((err) => {res=err})
-  return res;
+    .then((dbres) => {callback(dbres.rows)})
+    .catch((err) => {callback(err)})
+}
+
+function async_querydbLocal(command) {
+  return new Promise((resolve, reject) => {
+    querydbLocal(command, resolve);
+  });
 }
 
 function async_dbquery(req, res) {
@@ -143,4 +147,8 @@ http.listen(port, function () {
   console.log(`Listening on port ${http.address().port}`);
 });
 
-console.log(querydbLocal("select * from ips"));
+async_querydbLocal("select * from ips")
+.then((result) => {
+  console.log(result);
+})
+.catch((err) => {console.log(err)})
