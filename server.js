@@ -4,7 +4,10 @@ var http = require("http").Server(app);
 var url = require("url");
 var fs = require("fs");
 var bodyParser = require("body-parser");
+var crypto = require('crypto');
 const { Client } = require("pg"); // For the database
+
+const secret = "TailboneCancer";
 
 const port = process.env.PORT || 8080;
 
@@ -30,6 +33,14 @@ async function querydb(command, req, res) {
     .then((dbres) => {/*console.log(dbres.rows);*/
       res.send(dbres.rows)})
     .catch((err) => {console.log(err.stack), res.send(err.stack)})
+}
+
+async function querydbLocal(command) {
+  var res = '';
+  await client.query(command)
+    .then((dbres) => {res=dbres.rows})
+    .catch((err) => {res=err})
+  return res;
 }
 
 function async_dbquery(req, res) {
@@ -94,7 +105,8 @@ app.post("/", function(req, res){
   //console.log(req.body);
   //parse the data sent
   var userData = req.body;
-  //console.log(userData);
+  userData.password = crypto.createHmac('sha256', secret).update(userData.password).digest('hex');
+  console.log(userData);
   // Check userData against db
   res.sendFile(__dirname+"/html/home.html");
 });
@@ -131,4 +143,4 @@ http.listen(port, function () {
   console.log(`Listening on port ${http.address().port}`);
 });
 
-//console.log(querydb("select * from users"));
+console.log(querydbLocal("select * from ips"));
