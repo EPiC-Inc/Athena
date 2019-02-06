@@ -109,10 +109,14 @@ app.post("/", function(req, res){
   //console.log(req.body);
   //parse the data sent
   var userData = req.body;
-  userData.password = crypto.createHmac('sha256', secret).update(userData.password).digest('hex');
-  console.log(userData);
-  // Check userData against db
-  res.sendFile(__dirname+"/html/home.html");
+  if (userData.user && userData.password) {
+    userData.password = crypto.createHmac('sha256', secret).update(userData.password).digest('hex');
+    console.log(userData);
+    // Check userData against db
+    res.sendFile(__dirname+"/html/home.html");
+  } else {
+    res.sendFile(__dirname+'/html/index.html');
+  }
 });
 
 app.post("/database-entry", function(req, res){
