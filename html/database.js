@@ -1,8 +1,11 @@
 sendPost = function(whereToSend, data) {
   //console.log('sent');
   $.post(whereToSend, data, function(data, status){
-    console.log(data);
-    document.getElementById('databaseOutput').innerHTML = data;
+    document.getElementById('databaseOutput').innerHTML='';
+    //console.log(data);
+    data.forEach((row) => {
+      document.getElementById('databaseOutput').innerHTML += row;
+    });
   });
 }
 
