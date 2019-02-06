@@ -84,6 +84,10 @@ app.get("/", function(req, res){
   res.sendFile('html/index.html');
 });
 
+app.get("/:file", function(req, res){
+  res.send('blank');
+});
+
 // POST method routing
 app.post("/", function(req, res){
   //console.log(req.body);
