@@ -45,9 +45,44 @@ function async_dbquery(req, res) {
   //res.send(cmd);
 }
 
+function merge(values, content) {
+  for (var key in values) {
+    content = content.replace("{{"+key+"}}", values[key]);
+  }
+  return content;
+}
+
+function readFileSilent(filename) {
+  if (filename) {
+    return fs.readFileSync("./html/"+filename, 'utf8');
+  } else {
+    return '';
+  }
+}
+
+// Assemble webpage
+function assembleLong(htmlHeadFile, htmlBodyFile, htmlScriptsFile, values){
+  var result = `<!DOCTYPE html>
+<html>
+  <head>
+  `+readFileSilent("head.html")+readFileSilent(htmlHeadFile)+`
+  </head>
+  <body>
+  `+merge(values, readFileSilent(htmlBodyFile))+`
+  </body>
+  `+readFileSilent(htmlScriptsFile)+`
+</html>`
+  return result;
+}
+
+function assemble(htmlFile, values) {
+  var fileContent = fs.readFileSync("./html/"+htmlFile+".html", 'utf8')
+}
+
 // GET method route
 app.get("/", function(req, res){
-  res.sendFile("index.html");
+  //res.send(assembleLong('indexHead.html', 'indexBody.html', '', {}));
+  res.sendFile('html/index.html');
 });
 
 // POST method routing
@@ -74,7 +109,6 @@ app.post("/database-query", function(req, res){
     console.log("Stuff broke:"+err);
     //res.send("Error 500 : Stuff Broke<br>If you're the server owner, see the logs for more info");
   });
-  //res.send("wip");
 });
 
 // ALL routing
