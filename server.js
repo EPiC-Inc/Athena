@@ -18,7 +18,6 @@ client.connect();
 
 app.use(express.static(__dirname + "/html"));
 app.use(bodyParser.json());
-
 app.use(bodyParser.urlencoded({
      extended: true
 }));
